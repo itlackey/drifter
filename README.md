@@ -69,4 +69,9 @@ hubs=[tar]
 * private-key=xyz
 
 
+# Variables available to apps
+* DRIFTER_HOME
+* DRIFTER_TARGET
+* DRIFTER_SOURCE
+
 
