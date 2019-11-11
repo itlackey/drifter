@@ -1,0 +1,1 @@
+echo "drifter 0.1.0"

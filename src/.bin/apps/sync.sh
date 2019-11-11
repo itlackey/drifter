@@ -1,0 +1,1 @@
+#default sync script. simply copies globs specified in the .config file
