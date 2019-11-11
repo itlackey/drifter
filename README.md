@@ -128,10 +128,11 @@ Each hub knows how to pull/push files from/to it's local temporary folder.
 * $DRIFTER_HUB_BIN/[name]/pull.sh - pull latest changes from hub into local staging
 * $DRIFTER_HUB_BIN/[name]/push.sh - pushes local staging to remote hub
 
-## Optionial scripts
+## Optionial Files
 
 * hubs/[name]/copy-local.sh - custom logic to copy local settings to staging
 * hubs/[name]/copy-remote.sh - custom logic to copy staged settings to local dir
+* .config - default settings for the hub. Overriden by `$DRIFTER_CONFIG/hubs/[name]/.config`
 
 If these do not exist, drifter fallsback to the default scripts.
 
