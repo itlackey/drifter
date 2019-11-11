@@ -1,6 +1,7 @@
 # drifter
 Pipe dream to create a utility to sync my linux environment between machines. This includes syncing settings for KDE Plasma, bash etc.
 
+Written in bash this should run on any OS that can execute them. Additionally with the right override files in place be able to support most Linux and Unix based systems. Apps can write their backup logic in any language as long as it can be executed from the app's ./sync.sh file.
 
 # CLI
 
@@ -50,3 +51,14 @@ drifter hub download [name] - download drifter settings from a configured hub
 * support uname override files to allow apps to support installing on multiple platforms
   
   
+# Config
+~/.drifter/drifter.config
+auto-install=false
+apps=[kde,ssh,bash]
+hubs=[tar]
+
+~/.drifter/hubs - non-synced hub configs
+~/.drifter/hubs/tar.config 
+* target=~/Documents/drifter.tar.gz
+
+
