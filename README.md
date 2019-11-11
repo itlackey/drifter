@@ -69,9 +69,16 @@ hubs=[tar]
 * private-key=xyz
 
 
-# Variables available to apps
+# Variables and functions available to apps
 * DRIFTER_HOME
-* DRIFTER_TARGET
-* DRIFTER_SOURCE
+* DRIFTER_HUB_TARGET
+* DRIFTER_HUB_SOURCE
+
+* copy_from_hub
+* copy_to_hub
 
 
+# Hubs
+
+Hubs should support two folders. One folder is relative to $HOME and one is relative to /.
+Each hub knows how to pull/push files from/to it's local temporary folder.
