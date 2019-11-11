@@ -36,6 +36,8 @@ drifter hub download [name] - download drifter settings from a configured hub
 ## 0.1.0
 * basic support for adding globs to sync
 * one available hub, tar location setting
+* glob will be removed after 0.1.0. Meant for early testing
+* may consider creating glob app instead
 
 ## 0.2.0
 * support "apps" to bundle sync scripts for given applications
