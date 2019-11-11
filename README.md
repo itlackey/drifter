@@ -44,7 +44,8 @@ drifter hub download [name] - download drifter settings from a configured hub
 
 ## 0.3.0
 * support "hubs" to enable different locations to store settings
-* add private github repo hub -- only support overwrite-local=true flag. no "true git" support initially
+* add private github repo hub -- 
+* will only support overwrite-local=true flag. no "true git" support initially
 
 ## 0.4.0
 * allow ./install.sh files for apps and enable them with auto-install=true flag. 
@@ -58,7 +59,12 @@ apps=[kde,ssh,bash]
 hubs=[tar]
 
 ~/.drifter/hubs - non-synced hub configs
-~/.drifter/hubs/tar.config 
+~/.drifter/hubs/tar/.config 
 * target=~/Documents/drifter.tar.gz
+
+~/.drifter/hubs/github/.config
+* overwrite-local=true
+* private-key=xyz
+
 
 
