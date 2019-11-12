@@ -61,10 +61,15 @@ drifter hub push [name] - push local staging to remote hub
   
 # Drifter Config
 ~/.drifter/drifter.config
-auto-install=false
-apps=[kde,ssh,bash]
-hubs=[tar]
+```
+auto-install: false
+apps: [kde,ssh,bash]
+hubs: [tar]
+platform:
+    fallbacks: [ubuntu-18.04,debian-9]
+```
 
+platform.fallbacks is used to locate override files. drifter will first look at `uname` then fallback to the signatures in this array. If no scripts are found, it executes the default platform agnostic script.
 
 # Variables and functions available to apps
 Here are available variables in drifter scripts and their default values.
