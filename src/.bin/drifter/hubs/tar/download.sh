@@ -1,1 +1,1 @@
-#does nothing since there is no remote
+#extracts tar and copies drifter configuration in local home

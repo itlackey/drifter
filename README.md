@@ -26,37 +26,17 @@ drifter sync [name] - syncs all the things
 ```
 
 ```
-drifter remote add [name] [hub]
-drifter remote remove [name] [hub]
+drifter remote add [name] [hub] - adds a new remote of the using the hub type
+drifter remote remove [name] - removes the remote and its config for the hub
 drifter remote configure [name] - run ./drifter/hubs/[hub]/configure.sh to configure the hub for the remote
 ```
 
 ```
-drifter app add [name] - add app to list of syncs
-drifter app remove [name]
+drifter app add [name] - add to the list of apps to sync
+drifter app remove [name] - remove from the list of apps to sync
 drifter app sync [name] - runs [app]/sync.sh if exists or defaults to ./drifter/apps/sync.sh
 drifter app configure [name] - runs [app]/configure.sh to enable optional for app specific settings
 ```
-
-*TODO: replaced with remote, might refactor drifter hub to support plugins, or remove completely*
-
-```
-drifter hub add [name] - add hub to list of enabled hubs
-drifter hub remove [name] - remove hub from list of enabled hubs
-drifter hub configure [name] - run ./drifter/hubs/[name]/configure.sh to configure the hub
-drifter hub pull [name] - pull remote changes to hub's staging area
-drifter hub copy local [name] [glob] - copy local changes to hub's staging area
-drifter hub copy remote [name] [glob] - copy remote changes from staging to local folder
-drifter hub push [name] - push local staging to remote hub 
-```
-
-*testing only, will remove*
-```
-drifter glob add [glob] - supports globs under $HOME
-drifter glob remove [glob]
-drifter glob sync [glob] - syncs all globs or specify a single glob
-```
-
 
 # Roadmap
 
@@ -69,7 +49,7 @@ drifter glob sync [glob] - syncs all globs or specify a single glob
 ## 0.2.0
 * support "apps" to bundle sync scripts for given applications
 * sync app settings for a list of selected apps
-* support `drifter configure` to select the available app packages, then runs `drifter configure app` for each selected app
+* support `drifter config` to select the available app packages, ?then runs `drifter app configure` for each selected app
 
 ## 0.3.0
 * support "hubs" to enable different locations to store settings
@@ -104,7 +84,7 @@ Here are available variables in drifter scripts and their default values.
 
 * DRIFTER_BIN = ~/.bin/drifter
 * DRIFTER_HUB_BIN = ~/.bin/drifter/hubs
-* DRIFTER_APP_BIN = ~/.bin/drifter/apps
+* DRIFTER_APPS_BIN = ~/.bin/drifter/apps
 
 # Apps
 
@@ -160,9 +140,9 @@ Each hub knows how to pull/push files from/to it's local temporary folder.
 
 * hubs/[name]/copy-local.sh - custom logic to copy local settings to staging
 * hubs/[name]/copy-remote.sh - custom logic to copy staged settings to local dir
-* .config - default settings for the hub. Overriden by `$DRIFTER_CONFIG/hubs/[name]/.config`
+* .config - default settings for the hub. Overridden by `$DRIFTER_CONFIG/remotes/[name]/.config`
 
-If these do not exist, drifter fallsback to the default scripts.
+If these do not exist, drifter falls back to the default scripts.
 
 ## Configuration
 
