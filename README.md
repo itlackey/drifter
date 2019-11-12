@@ -3,8 +3,12 @@ Pipe dream to create a utility to sync my linux environment between machines. Th
 
 Written in bash this should run on any OS that can execute them. Additionally with the right override files in place be able to support most Linux and Unix based systems. Apps can write their backup logic in any language as long as it can be executed from the app's ./sync.sh file.
 
-The concept of platforms is a foundational piece of drifter. Platform overrides allow any drifter plugin to work on a specific platform. For example, you can configure drifter to support your current distro, fallback to the distro root and then to snap. Much like CSS the most specific script will be applied. This also allows drifter to support packages for OSs such as Windows and OSX. If there is no script for your platform, drifter can move along to the next app without issue.
-This also allows settings from an app installed on Arch to be applied to the same app running on KDE Neon or even OSX. This means drifter will run the sync-osx.sh file for the app while on your macbook and the sync-arch.sh while on your manjaro desktop.
+The concept of platforms is a foundational piece of drifter. Platform overrides allow any drifter plugin to work on a specific platform. For example, you can configure drifter to support your current distro, fallback to the distro root and then to snap. Only the most specific script will be applied. This also allows drifter to support packages for OSs such as Windows and OSX. If there is no script for your platform, drifter can move along to the next app without issue.
+This also allows settings from VS Code installed on Arch to be applied to VS Code running on KDE Neon or even OSX. This means drifter will run the vscode/sync-osx.sh file for the app while on your macbook and the vscode/sync-arch.sh while on your manjaro desktop.
+
+Let's say you decided to try out the new distro everyone is ranting about in their videos. You already know that there are no install scripts for your distro. However, since your distro derives from ubunto-18.04 you can disable platform detection and force drifter to use the ubuntu scripts.
+
+Maybe you are on your primary dev box and you need a stable environment? No problem, turn off platform fallbacks and force drifter to only use scripts built specifically for debian-9. When platform.enforce=true if there is no script matching your uname, nothing is executed for that app.
 
 # CLI
 
