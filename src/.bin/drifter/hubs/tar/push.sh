@@ -1,1 +1,0 @@
-#create tar from staging and drop in location setting folder
