@@ -3,33 +3,40 @@ Pipe dream to create a utility to sync my linux environment between machines. Th
 
 Written in bash this should run on any OS that can execute them. Additionally with the right override files in place be able to support most Linux and Unix based systems. Apps can write their backup logic in any language as long as it can be executed from the app's ./sync.sh file.
 
+The concept of platforms is a foundational piece of drifter. Platform overrides allow any drifter plugin to work on a specific platform. For example, you can configure drifter to support your current distro, fallback to the distro root and then to snap. Only the most specific script will be applied. This also allows drifter to support packages for OSs such as Windows and OSX. If there is no script for your platform, drifter can move along to the next app without issue.
+This also allows settings from VS Code installed on Arch to be applied to VS Code running on KDE Neon or even OSX. This means drifter will run the vscode/sync-osx.sh file for the app while on your MacBook and the vscode/sync-arch.sh while on your Manjaro desktop.
+
+Let's say you decided to try out the new distro everyone is ranting about in their videos. You already know that there are no install scripts for your distro. However, since your distro derives from ubuntu-18.04 you can disable platform detection and force drifter to use the ubuntu scripts.
+
+Since platform.fallbacks is an array of arbitrary strings, you can also do things like `[ubuntu-19.04,ubuntu,debian-9]`. This would look for a specific `sync-ubuntu-19.04.sh`, then a generic `sync-ubuntu.sh` before finally looking for a `sync-debian9.sh`.
+
+Maybe you are on your primary dev box and you need a stable environment? No problem, turn off platform fallbacks and force drifter to only use scripts built specifically for debian-9. When platform.enforce=true if there is no script matching your uname, nothing is executed for that app.
+
 # CLI
 
 ```
-drifter sync - syncs all the things
-drifter configure - prompts to configure the app settings
+drifter init - prompts to configure remote and downloads drifter settings from the configured remote
+drifter config - get and set drifter settings
 ```
 
 ```
-drifter glob add [glob] - supports globs under $HOME
-drifter glob remove [glob]
-drifter glob sync [glob] - syncs all globs or specify a single glob
+drifter pull [name] - pull remote changes to hub's staging area
+drifter push [name] - push local staging to remote hub 
+drifter sync [name] - syncs all the things
 ```
 
 ```
-drifter app add [name] - add app to list of syncs
-drifter app remove [name]
-drifter app sync [name]
-drifter app configure [name] - runs apps ./configure.sh to allow for app specific settings
+drifter remote add [name] [hub] - adds a new remote of the using the hub type
+drifter remote remove [name] - removes the remote and its config for the hub
+drifter remote configure [name] - run ./drifter/hubs/[hub]/configure.sh to configure the hub for the remote
 ```
 
 ```
-drifter hub add [name]
-drifter hub remove [name]
-drifter hub configure [name]
-drifter hub download [name] - download drifter settings from a configured hub
+drifter app add [name] - add to the list of apps to sync
+drifter app remove [name] - remove from the list of apps to sync
+drifter app sync [name] - runs [app]/sync.sh if exists or defaults to ./drifter/apps/sync.sh
+drifter app configure [name] - runs [app]/configure.sh to enable optional for app specific settings
 ```
-
 
 # Roadmap
 
@@ -42,43 +49,15 @@ drifter hub download [name] - download drifter settings from a configured hub
 ## 0.2.0
 * support "apps" to bundle sync scripts for given applications
 * sync app settings for a list of selected apps
-* support `drifter configure` to select the available app packages, then runs `drifter configure app` for each selected app
+* support `drifter config` to select the available app packages, ?then runs `drifter app configure` for each selected app
 
 ## 0.3.0
 * support "hubs" to enable different locations to store settings
 * add private github repo hub -- 
-* will only support overwrite-local=true flag. no "true git" support initially
+* will only support conflict-startegy=overwrite flag. no "true git" support initially
+    * eventually support overwrite, keep, merge
 
 ## 0.4.0
 * allow ./install.sh files for apps and enable them with auto-install=true flag. 
 * support uname override files to allow apps to support installing on multiple platforms
   
-  
-# Config
-~/.drifter/drifter.config
-auto-install=false
-apps=[kde,ssh,bash]
-hubs=[tar]
-
-~/.drifter/hubs - non-synced hub configs
-~/.drifter/hubs/tar/.config 
-* target=~/Documents/drifter.tar.gz
-
-~/.drifter/hubs/github/.config
-* overwrite-local=true
-* private-key=xyz
-
-
-# Variables and functions available to apps
-* DRIFTER_HOME
-* DRIFTER_HUB_TARGET
-* DRIFTER_HUB_SOURCE
-
-* copy_from_hub
-* copy_to_hub
-
-
-# Hubs
-
-Hubs should support two folders. One folder is relative to $HOME and one is relative to /.
-Each hub knows how to pull/push files from/to it's local temporary folder.
