@@ -3,11 +3,26 @@
 sh "$HOME/.config/drifter/.config"
 
 echo "drifter 0.1.0"
+DRIFTER_HOME="$HOME/.drifter"
+DRIFTER_REPO_HOME="$HOME/.drifter/repo"
+
 DRIFTER_BIN="$HOME/.bin/drifter"
 DRIFTER_APPS_BIN="$DRIFTER_BIN/apps"
 
 DRIFTER_CURRENT_HUB_BIN="$HOME/.bin/drifter/hubs/$hub/"
 echo $DRIFTER_CURRENT_HUB_BIN
+
+if [ ! -e "$DRIFTER_HOME" ]; then
+    echo "Creating home folder"
+    mkdir $DRIFTER_HOME
+fi 
+if [ ! -e "$DRIFTER_REPO_HOME" ]; then
+    echo "Creating repo folder"
+    mkdir $DRIFTER_REPO_HOME
+fi 
+
+#https://www.devdungeon.com/content/taking-command-line-arguments-bash
+DRIFTER_BIN="$(pwd)/drifter"
 
 case $1 in
     "init")
@@ -17,9 +32,13 @@ case $1 in
     "config")
         sh $DRIFTER_BIN/config.sh
     ;;
+
+    "remote")
+        sh $DRIFTER_BIN/remote/$2.sh $@
+    ;;
     
-    "pull")
-        sh $DRIFTER_CURRENT_HUB_BIN/sync.sh
+    "push")
+        sh $DRIFTER_CURRENT_HUB_BIN/push.sh
     ;;
 
     "pull")
@@ -27,7 +46,7 @@ case $1 in
     ;;
 
     "sync")
-        sh $DRIFTER_CURRENT_HUB_BIN/pull.sh
+        sh $DRIFTER_CURRENT_HUB_BIN/sync.sh
     ;;
 
     "app")
