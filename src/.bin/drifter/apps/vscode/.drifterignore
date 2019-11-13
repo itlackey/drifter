@@ -1,0 +1,9 @@
+Backups/
+blob_storage/
+Cache/
+CachedData
+CachedExtensions/
+Code Cache/
+GPUCache/
+logs/
+machineid
