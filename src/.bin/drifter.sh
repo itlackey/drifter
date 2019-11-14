@@ -24,6 +24,18 @@ fi
 #https://www.devdungeon.com/content/taking-command-line-arguments-bash
 DRIFTER_BIN="$(pwd)/drifter"
 
+if [ ! -e "$DRIFTER_HOME" ]; then
+    echo "Creating home folder"
+    mkdir $DRIFTER_HOME
+fi 
+if [ ! -e "$DRIFTER_REPO_HOME" ]; then
+    echo "Creating repo folder"
+    mkdir $DRIFTER_REPO_HOME
+fi 
+
+#https://www.devdungeon.com/content/taking-command-line-arguments-bash
+DRIFTER_BIN="$(pwd)/drifter"
+
 case $1 in
 "init")
     sh "$DRIFTER_BIN/init.sh"
