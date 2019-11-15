@@ -1,4 +1,5 @@
 # drifter
+
 Pipe dream to create a utility to sync my linux environment between machines. This includes syncing settings for KDE Plasma, bash etc.
 
 Written in bash this should run on any OS that can execute them. Additionally with the right override files in place be able to support most Linux and Unix based systems. Apps can write their backup logic in any language as long as it can be executed from the app's ./sync.sh file.
@@ -12,52 +13,33 @@ Since platform.fallbacks is an array of arbitrary strings, you can also do thing
 
 Maybe you are on your primary dev box and you need a stable environment? No problem, turn off platform fallbacks and force drifter to only use scripts built specifically for debian-9. When platform.enforce=true if there is no script matching your uname, nothing is executed for that app.
 
-# CLI
+## CLI
 
-```
+```sh
 drifter init - prompts to configure remote and downloads drifter settings from the configured remote
 drifter config - get and set drifter settings
 ```
 
-```
+```sh
 drifter pull [name] - pull remote changes to hub's staging area
-drifter push [name] - push local staging to remote hub 
+drifter push [name] - push local staging to remote hub
 drifter sync [name] - syncs all the things
 ```
 
-```
+```sh
 drifter remote add [name] [hub] - adds a new remote of the using the hub type
 drifter remote remove [name] - removes the remote and its config for the hub
 drifter remote configure [name] - run ./drifter/hubs/[hub]/configure.sh to configure the hub for the remote
 ```
 
-```
+```sh
 drifter app add [name] - add to the list of apps to sync
 drifter app remove [name] - remove from the list of apps to sync
 drifter app sync [name] - runs [app]/sync.sh if exists or defaults to ./drifter/apps/sync.sh
 drifter app configure [name] - runs [app]/configure.sh to enable optional for app specific settings
 ```
 
-# Roadmap
+## Roadmap
 
-## 0.1.0
-* basic support for adding globs to sync
-* one available hub, tar location setting
-* glob will be removed after 0.1.0. Meant for early testing
-* may consider creating glob app instead
-
-## 0.2.0
-* support "apps" to bundle sync scripts for given applications
-* sync app settings for a list of selected apps
-* support `drifter config` to select the available app packages, ?then runs `drifter app configure` for each selected app
-
-## 0.3.0
-* support "hubs" to enable different locations to store settings
-* add private github repo hub -- 
-* will only support conflict-startegy=overwrite flag. no "true git" support initially
-    * eventually support overwrite, keep, merge
-
-## 0.4.0
-* allow ./install.sh files for apps and enable them with auto-install=true flag. 
-* support uname override files to allow apps to support installing on multiple platforms
+Please see our page in the Wiki
   
